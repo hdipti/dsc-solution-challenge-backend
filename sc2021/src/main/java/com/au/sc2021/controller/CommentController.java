@@ -22,7 +22,7 @@ import com.au.sc2021.repo.CommentRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/comment")
+@RequestMapping("/api")
 public class CommentController {
 
 	@Autowired

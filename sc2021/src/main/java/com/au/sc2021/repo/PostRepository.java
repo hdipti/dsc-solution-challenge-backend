@@ -8,6 +8,6 @@ import com.au.sc2021.model.Post;
 
 public interface PostRepository extends CrudRepository<Post, Long> {
 	
-	List<Post> findByName(String authorName);
+	List<Post> findByAuthorId(String authorName);
 
 }

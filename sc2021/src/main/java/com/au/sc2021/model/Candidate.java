@@ -10,27 +10,30 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "candidate")
 public class Candidate {
-	
-	  @Id
-	  @GeneratedValue(strategy = GenerationType.AUTO)
-	  @Column(name = "candidate_Id")
-	  private long candidateId;
-	 
-	  @Column(name = "first_name")
-	  private String firstName;
-	  
-	  @Column(name = "last_name")
-	  private String lastName;
-	 
-	  @Column(name = "email")
-	  private String email;
-	 
-	  @Column(name = "description")
-	  private String description;
-	 
-	  public Candidate() {
-	  }
-	 
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "candidate_Id")
+	private long candidateId;
+
+	@Column(name = "first_name")
+	private String firstName;
+
+	@Column(name = "last_name")
+	private String lastName;
+
+	@Column(name = "email")
+	private String email;
+
+	@Column(name = "description")
+	private String description;
+
+	/**
+	 * Constructor
+	 */
+	public Candidate() {
+	}
+
 	/**
 	 * @param firstName
 	 * @param lastName
@@ -44,7 +47,7 @@ public class Candidate {
 		this.email = email;
 		this.description = description;
 	}
-	
+
 	/**
 	 * @return the candidateId
 	 */

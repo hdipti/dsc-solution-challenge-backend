@@ -21,6 +21,13 @@ public class Author {
 	
     @Column(name = "author_description")
 	private String authorDescription;
+    
+	/**
+	 * Constructor
+	 */
+	public Author() {
+		super();
+	}
 
 	/**
 	 * @param authorId

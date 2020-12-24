@@ -8,6 +8,6 @@ import com.au.sc2021.model.Comment;
 
 public interface CommentRepository extends CrudRepository<Comment, Long> {
 
-	List<Comment> findByName(String postId);
+	List<Comment> findByPostId(long postId);
 	
 }

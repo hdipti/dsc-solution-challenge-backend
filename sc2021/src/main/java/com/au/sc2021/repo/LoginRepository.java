@@ -8,6 +8,6 @@ import com.au.sc2021.model.Login;
 
 public interface LoginRepository extends CrudRepository<Login, Long> {
 	
-	List<Login> findByName(String userName);
+	List<Login> findByCandidateId(Long candidateId);
 
 }

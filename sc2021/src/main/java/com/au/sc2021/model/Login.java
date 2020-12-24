@@ -24,6 +24,14 @@ public class Login {
 	 
 	@Column(name = "password")
 	private String password;
+	
+
+	/**
+	 * Constructor
+	 */
+	public Login() {
+		super();
+	}
 
 	/**
 	 * @param login_Id
@@ -64,13 +72,6 @@ public class Login {
 	 */
 	public long getCandidateId() {
 		return candidateId;
-	}
-
-	/**
-	 * @param candidateId the candidateId to set
-	 */
-	public void setCandidate_Id(long candidateId) {
-		this.candidateId = candidateId;
 	}
 
 	/**

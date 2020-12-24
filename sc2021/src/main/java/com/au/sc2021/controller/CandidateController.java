@@ -24,97 +24,97 @@ import com.au.sc2021.repo.CandidateRepository;
 @RestController
 @RequestMapping("/api")
 public class CandidateController {
-	
+
 	@Autowired
-	  CandidateRepository repository;
-	 
-	  @GetMapping("/Candidates")
-	  public ResponseEntity<List<Candidate>> getAllCandidates() {
-	    List<Candidate> Candidates = new ArrayList<>();
-	    try {
-	      repository.findAll().forEach(Candidates::add);
-	      
-	      if (Candidates.isEmpty()) {
-	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	      }
-	      return new ResponseEntity<>(Candidates, HttpStatus.OK);
-	    } catch (Exception e) {
-	      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
-	  }
-	  
-	  @GetMapping("/Candidates/{candidateId}")
-	  public ResponseEntity<Candidate> getCandidateById(@PathVariable("candidateId") long candidateId) {
-	    Optional<Candidate> CandidateData = repository.findById(candidateId);
-	 
-	    if (CandidateData.isPresent()) {
-	      return new ResponseEntity<>(CandidateData.get(), HttpStatus.OK);
-	    } else {
-	      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	    }
-	  }
-	 
-	  @PostMapping(value = "/Candidates")
-	  public ResponseEntity<Candidate> postCandidate(@RequestBody Candidate Candidate) {
-	    try {
-	      Candidate _Candidate = repository.save(new Candidate(Candidate.getFirstName(), 
-	    		  Candidate.getLastName(), Candidate.getEmail(), Candidate.getDescription()));
-	      return new ResponseEntity<>(_Candidate, HttpStatus.CREATED);
-	    } catch (Exception e) {
-	      return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
-	    }
-	  }
-	 
-	  @DeleteMapping("/Candidates/{candidateId}")
-	  public ResponseEntity<HttpStatus> deleteCandidate(@PathVariable("candidateId") long id) {
-	    try {
-	      repository.deleteById(id);
-	      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	    } catch (Exception e) {
-	      return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
-	    }
-	  }
-	 
-	  @DeleteMapping("/Candidates")
-	  public ResponseEntity<HttpStatus> deleteAllCandidates() {
-	    try {
-	      repository.deleteAll();
-	      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	    } catch (Exception e) {
-	      return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
-	    }
-	 
-	  }
-	 
-	  @GetMapping(value = "Candidates/age/{age}")
-	  public ResponseEntity<List<Candidate>> findByFirstName(@PathVariable String candidateName) {
-	    try {
-	      List<Candidate> Candidates = repository.findByFirstName(candidateName);
-	 
-	      if (Candidates.isEmpty()) {
-	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	      }
-	      return new ResponseEntity<>(Candidates, HttpStatus.OK);
-	    } catch (Exception e) {
-	      return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
-	    }
-	  }
-	 
-	  @PutMapping("/Candidates/{candidateId}")
-	  public ResponseEntity<Candidate> updateCandidate(@PathVariable("candidateId") long id, @RequestBody Candidate Candidate) {
-	    Optional<Candidate> CandidateData = repository.findById(id);
-	 
-	    if (CandidateData.isPresent()) {
-	      Candidate _Candidate = CandidateData.get();
-	      _Candidate.setFirstName(Candidate.getFirstName());
-	      _Candidate.setLastName(Candidate.getLastName());
-	      _Candidate.setEmail(Candidate.getEmail());
-	      _Candidate.setDescription(Candidate.getDescription());
-	      return new ResponseEntity<>(repository.save(_Candidate), HttpStatus.OK);
-	    } else {
-	      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	    }
-	  }
+	CandidateRepository repository;
+
+	@GetMapping("/candidates")
+	public ResponseEntity<List<Candidate>> getAllCandidates() {
+		List<Candidate> Candidates = new ArrayList<>();
+		try {
+			repository.findAll().forEach(Candidates::add);
+
+			if (Candidates.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>(Candidates, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@GetMapping("/candidates/{candidateId}")
+	public ResponseEntity<Candidate> getCandidateById(@PathVariable("candidateId") long candidateId) {
+		Optional<Candidate> CandidateData = repository.findById(candidateId);
+
+		if (CandidateData.isPresent()) {
+			return new ResponseEntity<>(CandidateData.get(), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@PostMapping(value = "/candidates")
+	public ResponseEntity<Candidate> postCandidate(@RequestBody Candidate Candidate) {
+		try {
+			Candidate _Candidate = repository.save(new Candidate(Candidate.getFirstName(), 
+					Candidate.getLastName(), Candidate.getEmail(), Candidate.getDescription()));
+			return new ResponseEntity<>(_Candidate, HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
+		}
+	}
+
+	@DeleteMapping("/candidates/{candidateId}")
+	public ResponseEntity<HttpStatus> deleteCandidate(@PathVariable("candidateId") long id) {
+		try {
+			repository.deleteById(id);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+		}
+	}
+
+	@DeleteMapping("/candidates")
+	public ResponseEntity<HttpStatus> deleteAllCandidates() {
+		try {
+			repository.deleteAll();
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+		}
+
+	}
+
+	@GetMapping(value = "candidates/firstName/{firstName}")
+	public ResponseEntity<List<Candidate>> findByFirstName(@PathVariable String firstName) {
+		try {
+			List<Candidate> candidates = repository.findByFirstName(firstName);
+
+			if (candidates.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>(candidates, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+		}
+	}
+
+	@PutMapping("/candidates/{candidateId}")
+	public ResponseEntity<Candidate> updateCandidate(@PathVariable("candidateId") long id, @RequestBody Candidate candidate) {
+		Optional<Candidate> candidateData = repository.findById(id);
+
+		if (candidateData.isPresent()) {
+			Candidate _Candidate = candidateData.get();
+			_Candidate.setFirstName(candidate.getFirstName());
+			_Candidate.setLastName(candidate.getLastName());
+			_Candidate.setEmail(candidate.getEmail());
+			_Candidate.setDescription(candidate.getDescription());
+			return new ResponseEntity<>(repository.save(_Candidate), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 
 
 }

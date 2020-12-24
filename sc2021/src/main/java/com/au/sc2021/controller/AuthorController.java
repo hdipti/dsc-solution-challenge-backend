@@ -28,7 +28,7 @@ public class AuthorController {
 	 @Autowired
 	  AuthorRepository repository;
 	 
-	  @GetMapping("/Authors")
+	  @GetMapping("/authors")
 	  public ResponseEntity<List<Author>> getAllAuthors() {
 	    List<Author> Authors = new ArrayList<>();
 	    try {
@@ -43,7 +43,7 @@ public class AuthorController {
 	    }
 	  }
 	  
-	  @GetMapping("/Authors/{authorId}")
+	  @GetMapping("/authors/{authorId}")
 	  public ResponseEntity<Author> getAuthorById(@PathVariable("authorId") long id) {
 	    Optional<Author> AuthorData = repository.findById(id);
 	 
@@ -54,7 +54,7 @@ public class AuthorController {
 	    }
 	  }
 	 
-	  @PostMapping(value = "/Authors")
+	  @PostMapping(value = "/authors")
 	  public ResponseEntity<Author> postAuthor(@RequestBody Author Author) {
 	    try {
 	      Author _Author = repository.save(new Author(Author.getAuthorName(), Author.getAuthorDescription()));
@@ -64,7 +64,7 @@ public class AuthorController {
 	    }
 	  }
 	 
-	  @DeleteMapping("/Authors/{authorId}")
+	  @DeleteMapping("/authors/{authorId}")
 	  public ResponseEntity<HttpStatus> deleteAuthor(@PathVariable("authorId") long id) {
 	    try {
 	      repository.deleteById(id);
@@ -74,7 +74,7 @@ public class AuthorController {
 	    }
 	  }
 	 
-	  @DeleteMapping("/Authors")
+	  @DeleteMapping("/authors")
 	  public ResponseEntity<HttpStatus> deleteAllAuthors() {
 	    try {
 	      repository.deleteAll();
@@ -85,28 +85,28 @@ public class AuthorController {
 	 
 	  }
 	 
-	  @GetMapping(value = "Authors/authorName/{authorName}")
+	  @GetMapping(value = "authors/authorName/{authorName}")
 	  public ResponseEntity<List<Author>> findByAuthorName(@PathVariable String authorName) {
 	    try {
-	      List<Author> Authors = repository.findByAuthorName(authorName);
+	      List<Author> authors = repository.findByAuthorName(authorName);
 	 
-	      if (Authors.isEmpty()) {
+	      if (authors.isEmpty()) {
 	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	      }
-	      return new ResponseEntity<>(Authors, HttpStatus.OK);
+	      return new ResponseEntity<>(authors, HttpStatus.OK);
 	    } catch (Exception e) {
 	      return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
 	    }
 	  }
 	 
-	  @PutMapping("/Authors/{authorId}")
-	  public ResponseEntity<Author> updateAuthor(@PathVariable("authorId") long id, @RequestBody Author Author) {
+	  @PutMapping("/authors/{authorId}")
+	  public ResponseEntity<Author> updateAuthor(@PathVariable("authorId") long id, @RequestBody Author author) {
 	    Optional<Author> AuthorData = repository.findById(id);
 	 
 	    if (AuthorData.isPresent()) {
 	      Author _Author = AuthorData.get();
-	      _Author.setAuthorName(Author.getAuthorName());
-	      _Author.setAuthorDescription(Author.getAuthorDescription());
+	      _Author.setAuthorName(author.getAuthorName());
+	      _Author.setAuthorDescription(author.getAuthorDescription());
 	      return new ResponseEntity<>(repository.save(_Author), HttpStatus.OK);
 	    } else {
 	      return new ResponseEntity<>(HttpStatus.NOT_FOUND);

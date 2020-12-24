@@ -45,6 +45,31 @@ public class Post {
 	private String likeCount;
 
 	/**
+	 * Constructor
+	 */
+	public Post() {
+		super();
+	}
+
+	/**
+	 * @param authorId
+	 * @param postDate
+	 * @param content
+	 * @param status
+	 * @param postType
+	 * @param likeCount
+	 */
+	public Post(long authorId, Date postDate, StringBuffer content, String status, String postType, String likeCount) {
+		super();
+		this.authorId = authorId;
+		this.postDate = postDate;
+		this.content = content;
+		this.status = status;
+		this.postType = postType;
+		this.likeCount = likeCount;
+	}
+
+	/**
 	 * @return the postId
 	 */
 	public long getPostId() {

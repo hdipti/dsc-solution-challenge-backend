@@ -27,6 +27,12 @@ public class Candidate {
 
 	@Column(name = "description")
 	private String description;
+	
+	@Column(name = "username")
+	private String userName;
+	 
+	@Column(name = "password")
+	private String password;
 
 	/**
 	 * Constructor
@@ -39,13 +45,17 @@ public class Candidate {
 	 * @param lastName
 	 * @param email
 	 * @param description
+	 * @param userName
+	 * @param password
 	 */
-	public Candidate(String firstName, String lastName, String email, String description) {
+	public Candidate(String firstName, String lastName, String email, String description, String userName, String password) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.description = description;
+		this.userName = userName;
+		this.password = password;
 	}
 
 	/**
@@ -116,6 +126,33 @@ public class Candidate {
 		return description;
 	}
 
+	/**
+	 * @return the userName
+	 */
+	public String getUserName() {
+		return userName;
+	}
+
+	/**
+	 * @param userName the userName to set
+	 */
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	/**
 	 * @param description the description to set
@@ -130,7 +167,8 @@ public class Candidate {
 	@Override
 	public String toString() {
 		return "Candidate [candidateId=" + candidateId + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", email=" + email + ", description=" + description + "]";
+				+ ", email=" + email + ", description=" + description + ", userName=" + userName + ", password="
+				+ password + "]";
 	}
 
 }

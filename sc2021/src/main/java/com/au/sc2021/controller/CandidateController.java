@@ -42,7 +42,7 @@ public class CandidateController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
+	
 	@GetMapping("/candidates/{candidateId}")
 	public ResponseEntity<Candidate> getCandidateById(@PathVariable("candidateId") long candidateId) {
 		Optional<Candidate> CandidateData = repository.findById(candidateId);
@@ -58,7 +58,7 @@ public class CandidateController {
 	public ResponseEntity<Candidate> postCandidate(@RequestBody Candidate Candidate) {
 		try {
 			Candidate _Candidate = repository.save(new Candidate(Candidate.getFirstName(), 
-					Candidate.getLastName(), Candidate.getEmail(), Candidate.getDescription()));
+					Candidate.getLastName(), Candidate.getEmail(), Candidate.getDescription(), Candidate.getUserName(), Candidate.getPassword()));
 			return new ResponseEntity<>(_Candidate, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
@@ -110,6 +110,8 @@ public class CandidateController {
 			_Candidate.setLastName(candidate.getLastName());
 			_Candidate.setEmail(candidate.getEmail());
 			_Candidate.setDescription(candidate.getDescription());
+			_Candidate.setUserName(candidate.getUserName());
+			_Candidate.setPassword(candidate.getPassword());
 			return new ResponseEntity<>(repository.save(_Candidate), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

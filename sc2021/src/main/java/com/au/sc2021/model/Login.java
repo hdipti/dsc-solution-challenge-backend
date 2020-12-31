@@ -8,14 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "login")
+@Table(name = "candidate")
 public class Login {
 	
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@Column(name = "login_Id")
+//	private long  loginId;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "login_Id")
-	private long  loginId;
-	 
 	@Column(name = "candidate_Id")
 	private long candidateId;
 	 
@@ -44,20 +44,6 @@ public class Login {
 		this.candidateId = candidateId;
 		this.userName = userName;
 		this.password = password;
-	}
-
-	/**
-	 * @return the loginId
-	 */
-	public long getLoginId() {
-		return loginId;
-	}
-
-	/**
-	 * @param loginId the loginId to set
-	 */
-	public void setLoginId(long loginId) {
-		this.loginId = loginId;
 	}
 
 	/**
@@ -107,7 +93,7 @@ public class Login {
 	 */
 	@Override
 	  public String toString() {
-	    return "Candidate [id = " + loginId + ", Candidate_id = " + candidateId + ", User name = " + userName + 
+	    return "Candidate [ Candidate_id = " + candidateId + ", User name = " + userName + 
 	    	 ", password = " + password + "]";
 	  } 
 	 

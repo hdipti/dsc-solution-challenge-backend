@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.au.sc2021.model.Candidate;
@@ -30,14 +33,14 @@ public class CandidateController {
 
 	@GetMapping("/candidates")
 	public ResponseEntity<List<Candidate>> getAllCandidates() {
-		List<Candidate> Candidates = new ArrayList<>();
+		List<Candidate> candidates = new ArrayList<>();
 		try {
-			repository.findAll().forEach(Candidates::add);
+			repository.findAll().forEach(candidates::add);
 
-			if (Candidates.isEmpty()) {
+			if (candidates.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
-			return new ResponseEntity<>(Candidates, HttpStatus.OK);
+			return new ResponseEntity<>(candidates, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -58,10 +61,33 @@ public class CandidateController {
 	public ResponseEntity<Candidate> postCandidate(@RequestBody Candidate Candidate) {
 		try {
 			Candidate _Candidate = repository.save(new Candidate(Candidate.getFirstName(), 
-					Candidate.getLastName(), Candidate.getEmail(), Candidate.getDescription(), Candidate.getUserName(), Candidate.getPassword()));
+					Candidate.getLastName(), Candidate.getEmail(), Candidate.getDescription(), Candidate.getUsername(), Candidate.getPassword()));
 			return new ResponseEntity<>(_Candidate, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
+		}
+	}
+	
+
+//	@GetMapping(value = "/login/username/{username}/password/{password}") 
+//	@RequestMapping(
+//			  value = "/login", 
+//			  params = { "username", "password" }, 
+//			  method = RequestMethod.GET)
+	@CrossOrigin(origins = "http://localhost:4200/api/")
+	@RequestMapping(path = "/login")
+	public ResponseEntity<Candidate> getCandidateByLoginDetails(@RequestParam(required = true) String username, 
+			@RequestParam(required = true) String password) {
+		// http://localhost:8080/api/login?username=myname&password=123dws
+		try {
+			Candidate candidate = repository.getCandidateByLoginDetails(username, password);
+
+			if (candidate == null) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>(candidate, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
 		}
 	}
 
@@ -110,13 +136,12 @@ public class CandidateController {
 			_Candidate.setLastName(candidate.getLastName());
 			_Candidate.setEmail(candidate.getEmail());
 			_Candidate.setDescription(candidate.getDescription());
-			_Candidate.setUserName(candidate.getUserName());
+			_Candidate.setUserName(candidate.getUsername());
 			_Candidate.setPassword(candidate.getPassword());
 			return new ResponseEntity<>(repository.save(_Candidate), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-
-
+	
 }

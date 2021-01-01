@@ -68,28 +68,28 @@ public class CandidateController {
 		}
 	}
 	
-
+//Can't get this working, so loading all candidates at login and adding to cache
 //	@GetMapping(value = "/login/username/{username}/password/{password}") 
 //	@RequestMapping(
 //			  value = "/login", 
 //			  params = { "username", "password" }, 
 //			  method = RequestMethod.GET)
-	@CrossOrigin(origins = "http://localhost:4200/api/")
-	@RequestMapping(path = "/login")
-	public ResponseEntity<Candidate> getCandidateByLoginDetails(@RequestParam(required = true) String username, 
-			@RequestParam(required = true) String password) {
-		// http://localhost:8080/api/login?username=myname&password=123dws
-		try {
-			Candidate candidate = repository.getCandidateByLoginDetails(username, password);
-
-			if (candidate == null) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
-			return new ResponseEntity<>(candidate, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
-		}
-	}
+//	@CrossOrigin(origins = "http://localhost:4200/api/")
+//	@RequestMapping(path = "/login")
+//	public ResponseEntity<Candidate> getCandidateByLoginDetails(@RequestParam(required = true) String username, 
+//			@RequestParam(required = true) String password) {
+//		// http://localhost:8080/api/login?username=myname&password=123dws
+//		try {
+//			Candidate candidate = repository.getCandidateByLoginDetails(username, password);
+//
+//			if (candidate == null) {
+//				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//			}
+//			return new ResponseEntity<>(candidate, HttpStatus.OK);
+//		} catch (Exception e) {
+//			return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+//		}
+//	}
 
 	@DeleteMapping("/candidates/{candidateId}")
 	public ResponseEntity<HttpStatus> deleteCandidate(@PathVariable("candidateId") long id) {
